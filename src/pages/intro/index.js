@@ -3,6 +3,7 @@ import { Grid, Box, Typography, Link, Button } from "@mui/material";
 import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import PopUpBackground from "../../components/popUp";
 function Intro() {
    const router = useRouter();
   const fullText =
@@ -47,77 +48,44 @@ function Intro() {
         src="/static/images/Welcome/logo.png"
       />
       <Box>
-        <Box
-          component="img"
-          position={"absolute"}
-          top="20%"
-          left="24%"
-          width={1000}
-          height={750}
-          maxWidth={1050}
-          sx={{
-            // backgroundColor:"blue",
+        
+        <PopUpBackground children={<Box width={1} height={1}  justifyContent={"center"} justifyItems={"center"}>
 
-            transform: "translate(-50%, -50%)",
-            objectFit: "contain",
-            animation: "floatWelcome 3s ease-in-out infinite",
-          }}
-          alt="logo"
-          src="/static/images/Rules/popUp.png"
-        ></Box>
-        <Box
-          position={"absolute"}
-          top="30%"
-          left="30%"
-          width={800}
-          height={600}
-          maxWidth={900}
-          justifyContent={"center"}
-          justifyItems={"center"}
-          sx={{
-            // backgroundColor:"red",
-            transform: "translate(-50%, -50%)",
-            objectFit: "contain",
-            animation: "floatWelcome 3s ease-in-out infinite",
-          }}
-        >
-          <Box
-            sx={{
-              width: "100%",
-              maxWidth: "800px",
-              height:"400px",
-              // margin: "0 auto",
-              // alignSelf:"self-end",
-              mt:10,
-              mb:3,
-              padding: "30px 30px",
-            }}
-          >
-            <Typography variant="h4" color="#fff" textAlign={"center"}>
+          <Box height={.9} alignContent={"center"} >
+          <Typography fontSize={"1.7vw"} color="#fff" textAlign={"center"}>
             {displayedText}
             </Typography>
           </Box>
+          {/* </Box> */}
           {/* <Box width={200} height={50} sx={{backgroundColor:"red"}}></Box> */}
           <Box
-            justifySelf={"flex-end"}
-            sx={{ cursor: "pointer" }}
-            pt={2}
-            pr={2}
-          >
-            <Button
-              onClick={() => {
-                router.push("/rules");
-              }}
-            >
-              <Image
-                src={"/static/images/Intro/Next.png"}
-                width={500}
-                height={100}
-                objectFit="cover"
-              />
-            </Button>
-          </Box>
-        </Box>
+                      justifySelf={"flex-end"}
+                      alignSelf={"flex-end"}
+                      alignItems={"flex-end"}
+                      alignContent={"flex-end"}
+                      sx={{ cursor: "pointer" }}
+                      maxWidth={600}
+                      pr={2}
+                    >
+                      <Button
+                        onClick={()=>{
+                          router.push('/rules')
+                        }}
+                        // disabled={loading}
+                        sx={{ width: "100%" }}
+                      >
+                        
+                          <Image
+                            src={"/static/images/Intro/Next.png"}
+                            width={500}
+                            height={100}
+                            objectFit="cover"
+                            alt="Login Button"
+                          />
+                        
+                      </Button>
+                    </Box>
+        </Box>}/>
       </Box>
     </Grid>
   );

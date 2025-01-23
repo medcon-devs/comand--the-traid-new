@@ -98,16 +98,21 @@ const clickCard = async (card_id,round_id) => {
 
   return (
     <Box>
-   {loading?(<Box></Box>):( <Box width={1} minWidth={1920}>
-      {checkGameFinished()?(<Box  width={1}
+   {loading?(<Box></Box>):( <Box width={1} >
+      {checkGameFinished()?(<Box  
       // height={910}
       top= {0}
       position={"fixed"}
       zIndex={1000}
       height={"100vh"}
+      width={"100vw"}
       sx={{
-        background: `url('/static/images/Home/Game Over.png')`,
-        backgroundSize: "cover",
+        backgroundImage: `url('/static/images/Home/Game Over.png')`,
+        backgroundSize:"cover",
+        // backgroundPosition
+        backgroundRepeat:"no-repeat",
+        backgroundPosition:"center"
+
         // overflow: "hidden",
         // position: "relative",
       }}></Box>):(
@@ -132,17 +137,19 @@ const clickCard = async (card_id,round_id) => {
                  roundIndex + 1
               }.png")`,
               backgroundSize:"cover",
+              backgroundPosition:"center",
               // backgroundPosition:"center",
               // objectFit:"cover",
               backgroundRepeat: "no-repeat",
               // height:800,
-              width:"35%",
+              // width:"35%",
               pt: 12,
-
-              pb:3.3,
-              // pb: 0,
-              pl: 6,
-              pr:0,
+              // pt:10,
+              // pb:3.3,
+              pb: 2,
+              pl: 4,
+              pr:1,
+              // pb:3
               // width: "30%",
             }}
             // flex={1}

@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
     baseURL: process.env.BASE_URL,
   },
   reactStrictMode: true,
+  trailingSlash: true,
   eslint: {
     ignoreDuringBuilds: true, // Ignore ESLint during builds
   },

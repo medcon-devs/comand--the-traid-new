@@ -7,6 +7,7 @@ import { routeConfig } from "../../constant/route";
 import Image from "next/image";
 import SuccessPopUp from "../../components/Login/successPopUp";
 import ErrorPopUp from "../../components/Login/errorPopUp";
+import PopUpBackground from "../../components/popUp";
 
 function Login() {
   const componentRef = useRef(null);
@@ -132,7 +133,7 @@ function Login() {
         width={400}
         height={200}
         position="absolute"
-        top="30%"
+        top="27%"
         left="50%"
         sx={{
           transform: "translate(-50%, -50%)",
@@ -143,43 +144,50 @@ function Login() {
         src="/static/images/Welcome/logo.png"
       />
       <Box>
-        <Box
+        {/* <Box
           component="img"
           position={"absolute"}
           top="25%"
-          left="27%"
+          left="20%"
           width={850}
           height={700}
-          maxWidth={900}
-          maxHeight={900}
+          maxWidth={"70vw"}
+          maxHeight={"70vh"}
           sx={{
+            // backgroundColor:"red",
             transform: "translate(-50%, -50%)",
             objectFit: "contain",
             animation: "floatWelcome 3s ease-in-out infinite",
           }}
           alt="logo"
           src="/static/images/Rules/popUp.png"
-        ></Box>
-        <Box
+        ></Box> */}
+        {/* <Box
           position={"absolute"}
-          top="37%"
-          left="33%"
+          top="35%"
+          left="25%"
           width={680}
           height={500}
-          maxWidth={900}
+          // maxWidth={900}
+          maxHeight={"50vh"}
+          maxWidth={"60vw"}
           justifyContent={"center"}
           justifyItems={"center"}
           sx={{
+            // backgroundColor:"blue",
             transform: "translate(-50%, -50%)",
             objectFit: "contain",
             animation: "floatWelcome 3s ease-in-out infinite",
           }}
         >
+          
+        </Box> */}
+        <PopUpBackground  children={<Box height={1} width={1} justifyContent={"center"} justifyItems={"center"}> 
           <Box
             width={"90%"}
             height={"90%"}
-            maxHeight={900}
-            maxWidth={900}
+            maxHeight={"50vw"}
+            maxWidth={"60vh"}
             alignContent={"center"}
           >
             {/* Email Input */}
@@ -273,7 +281,7 @@ function Login() {
               )}
             </Button>
           </Box>
-        </Box>
+        </Box>}/>
       </Box>
       <SuccessPopUp open={openSuceess} handleClose={handleClose}/>
       <ErrorPopUp open={openError} handleClose={handleClose} message={errorMessage}/>

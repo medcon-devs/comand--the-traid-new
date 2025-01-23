@@ -29,7 +29,7 @@ export const Round3 = [
     question:"Unleash your Innovation \n Wordless Acting \n The Judges will provide a WORD. One person from your team will ACT out this word, while the rest of the team tries to guess it.",
     options: [],
     correctAnswer: "",
-    image: "images/round3/wordless.png",
+    image: "/static/images/round3/wordless.png",
     audio:"",
     timer:60
   },
@@ -63,7 +63,7 @@ export const Round3 = [
     question:"Unleash your Innovation \n Wordless Acting \n The Judges will provide a WORD. One person from your team will ACT out this word, while the rest of the team tries to guess it.",
     options: [],
     correctAnswer: "",
-    image: "images/round3/wordless.png",
+    image: "/static/images/round3/wordless.png",
     audio:"",
     timer:60
   },
@@ -100,7 +100,7 @@ export const Round3 = [
     question:"Unleash your Innovation \n Draw the Word \n The Judges will provide a WORD. One person from your team will DRAW out this word, while the rest of the team tries to guess it.",
     options: [],
     correctAnswer: "",
-    image: "images/round3/draw.png",
+    image: "/static/images/round3/draw.png",
     audio:"",
     timer:120
   },
@@ -134,7 +134,7 @@ export const Round3 = [
     question:"Unleash your Innovation \n Draw the Word \n The Judges will provide a WORD. One person from your team will DRAW out this word, while the rest of the team tries to guess it.",
     options: [],
     correctAnswer: "",
-    image: "images/round3/draw.png",
+    image: "/static/images/round3/draw.png",
     audio:"",
     timer:120
   },
@@ -168,7 +168,7 @@ export const Round3 = [
   question:"Unleash your Innovation \n Create/Sing a Song  \n collaborate as a team to compose and perform a song together based on a given theme or scenario. Judges evaluate the performance and creativity.",
   options: [],
   correctAnswer: "",
-  image: "images/round3/sing.png",
+  image: "/static/images/round3/sing.png",
   audio:"",
   timer:300
 },
@@ -202,7 +202,7 @@ export const Round3 = [
   question:"Unleash your Innovation \n Create/Sing a Song  \n collaborate as a team to compose and perform a song together based on a given theme or scenario. Judges evaluate the performance and creativity.",
   options: [],
   correctAnswer: "",
-  image: "images/round3/sing.png",
+  image: "/static/images/round3/sing.png",
   audio:"",
   timer:300
 },

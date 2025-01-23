@@ -45,12 +45,12 @@ const FlippingCard = ({
       transform: "scale(0.8)", // Start smaller
       animation: `fadeInScale 0.6s ease-in-out ${animationDelay}s forwards`,
     }}>
-      <Grid item md={10} height={110}>
+      <Grid item md={10} height={"5.8vw"}>
         <Box
           onClick={handleCardClick}
           sx={{
             position: "relative",
-            height: 100,
+            height: "5.4vw",
             width: "100%",
             perspective: "1000px", // Enables 3D perspective
           }}

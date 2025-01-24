@@ -56,12 +56,12 @@ function Rules() {
         overflow: "hidden",
       }}
     >
-      <Box
+      {/* <Box
         component="img"
         width={400}
         height={200}
         position="absolute"
-        top="25%"
+        top="20%"
         left="50%"
         sx={{
           transform: "translate(-50%, -50%)",
@@ -70,7 +70,7 @@ function Rules() {
         }}
         alt="logo"
         src="/static/images/Welcome/logo.png"
-      />
+      /> */}
       <Box>
         {/* <Box
           // component="img"
@@ -100,7 +100,7 @@ function Rules() {
           
 
           <Box height={1}  >
-            <Box height={.9}>
+            <Box height={.98}>
             <Typography fontSize={"2.2vw"} color="#fff">
             Game Rules & Mechanics
           </Typography>
@@ -129,10 +129,10 @@ function Rules() {
                 },
                 {
                   title: "•&nbsp&nbsp&nbsp&nbsp;Help Tokens",
-                  description: "• You have 3 gates to conquer and collect miles for your Race.",
+                  description: "• You have 3 gates to conquer and collect miles for your Race",
                   subItems: [
-                    "-  Each gate contains 18 Tiles containing questions, requests, or challenges.",
-                    "-  The Tiles are divided into 3 difficulty levels. The tougher the challenge, the more miles you earn to complete the Race and cross the TRIAD.",
+                    "-  Each gate contains 18 Tiles containing questions, requests, or challenges",
+                    "-  The Tiles are divided into 3 difficulty levels. The tougher the challenge, the more miles you earn to complete the Race and cross the TRIAD",
                   ],
                 },
                 {
@@ -159,7 +159,7 @@ function Rules() {
                   variants={textVariants}
                   style={{
                     marginBottom: "5px",
-                    fontSize: "0.85vw",
+                    fontSize: "1.14vw",
                     color: "#fff",
                   }}
                 >
@@ -178,7 +178,7 @@ function Rules() {
                           variants={textVariants}
                           style={{
                             marginBottom: "10px",
-                            fontSize: "0.75vw",
+                            fontSize: "0.9vw",
                             color: "#FFF",
                           }}
                         >
@@ -197,7 +197,10 @@ function Rules() {
                                   alignSelf={"flex-end"}
                                   alignItems={"flex-end"}
                                   alignContent={"flex-end"}
-                                  sx={{ cursor: "pointer" }}
+                                  sx={{ cursor: "pointer" ,
+
+                                    // backgroundColor:"red"
+                                  }}
                                   maxWidth={600}
                                   pr={2}
                                 >

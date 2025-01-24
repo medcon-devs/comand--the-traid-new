@@ -1,42 +1,56 @@
-import { Grid, Box,Button } from "@mui/material";
+import { useState, useEffect } from "react";
+import { Grid, Box, Button } from "@mui/material";
 import Image from "next/image";
 import HomeGame from "../../components/HomeGame/HomeGame";
+import Leaderboard from "../../components/Leaderboard/Leaderboard";
+import { Howl } from "howler";
 import { useRouter } from "next/navigation";
-import { useEffect ,useState} from "react";
-import Leaderboard  from "../../components/Leaderboard/Leaderboard"
+
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
   const [open, setOpen] = useState(false);
-  const handleClose = ()=> {
-    setOpen(false)
-  };
+  const [isTopBorderFinished, setIsTopBorderFinished] = useState(false);
+  const [isBottomBorderReady, setIsBottomBorderReady] = useState(false);
+  const router = useRouter();
+
+  const borderTopSound = new Howl({
+    src: ["/static/audios/effect/Border - Top.mp3"],
+    volume: 0.8,
+    preload: true,
+  });
+
+  const borderBottomSound = new Howl({
+    src: ["/static/audios/effect/Border - Bottom.mp3"],
+    volume: 0.8,
+    preload: true,
+  });
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
     } else {
-      router.replace("/login"); // Redirect to login if not logged in
+      router.replace("/login");
     }
     setLoading(false);
   }, [router]);
 
-  if (loading) {
-    // Optionally display a loading spinner or blank screen
-    return <Box>Loading...</Box>;
-  }
+  const handleTopBorderAnimationEnd = () => {
+    setIsTopBorderFinished(true);
 
-  if (!isLoggedIn) {
-    // If not logged in, show nothing (since redirection happens in useEffect)
-    return null;
-  }
+    // Start the bottom border animation after 3 seconds
+    setTimeout(() => {
+      setIsBottomBorderReady(true);
+    }, 3000); // 3000ms = 3 seconds
+  };
+
+  if (loading) return <Box>Loading...</Box>;
+  if (!isLoggedIn) return null;
 
   return (
-   
     <Grid
       width={1}
-      // height={910}
       height={"100vh"}
       sx={{
         background: `url('/static/images/Home/background.png')`,
@@ -76,7 +90,6 @@ export default function Home() {
       </Box>
 
       <Box height={"auto"} width={1} sx={{ alignContent: "center", zIndex: 1 }}>
-        {/* Title and Icons */}
         <Grid
           display={"flex"}
           sx={{
@@ -97,37 +110,34 @@ export default function Home() {
           />
           <Box display={"flex"} gap={2} sx={{ alignItems: "flex-end" }}>
             <Button onClick={() => setOpen(true)}>
-            <Box
-              position="relative"
-              width={100}
-              height={50}
-              sx={{ animation: "bounce 2s infinite" }}
-            >
-              <Image
-                src="/static/images/Home/Leaderboard.png"
-                layout="fill"
-                objectFit="cover"
-                alt="Leaderboard"
-                
-              />
-            </Box>
+              <Box
+                position="relative"
+                width={100}
+                height={50}
+                sx={{ animation: "bounce 2s infinite" }}
+              >
+                <Image
+                  src="/static/images/Home/Leaderboard.png"
+                  layout="fill"
+                  objectFit="cover"
+                  alt="Leaderboard"
+                />
+              </Box>
             </Button>
-            <Button onClick={()=>{
-              router.push('/rules')
-            }}>
-            <Box
-              position="relative"
-              width={40}
-              height={40}
-              sx={{ animation: "pulse 1.5s infinite" }}
-            >
-              <Image
-                src="/static/images/Home/info.png"
-                layout="fill"
-                objectFit="cover"
-                alt="Info"
-              />
-            </Box>
+            <Button onClick={() => router.push("/rules")}>
+              <Box
+                position="relative"
+                width={40}
+                height={40}
+                sx={{ animation: "pulse 1.5s infinite" }}
+              >
+                <Image
+                  src="/static/images/Home/info.png"
+                  layout="fill"
+                  objectFit="cover"
+                  alt="Info"
+                />
+              </Box>
             </Button>
           </Box>
         </Grid>
@@ -138,16 +148,15 @@ export default function Home() {
           top={60}
           left={"2.5%"}
           width={0.95}
-          // height={50}
-          justifySelf={"center"}
           sx={{
             animation: "slideInLeft 2s ease-out",
             animationFillMode: "forwards",
           }}
+          onAnimationStart={() => borderTopSound.play()}
+          onAnimationEnd={handleTopBorderAnimationEnd} // Trigger when animation ends
         >
           <Image
             src="/static/images/Home/GameBoarderTop.png"
-            // layout="fill"
             width={1850}
             height={30}
             objectFit="cover"
@@ -160,53 +169,29 @@ export default function Home() {
       <HomeGame />
 
       {/* Bottom Border Animation */}
-
-      <Box
+      {isBottomBorderReady && ( // Render only after 3 seconds after the top border animation ends
+        <Box
           position="absolute"
           bottom={10}
           left={"2.5%"}
           width={0.95}
-          // height={50}
-          justifySelf={"center"}
           sx={{
-            animation: "slideInRight 2s ease-out",
+            animation: "slideInRight 1s ease-out",
             animationFillMode: "forwards",
           }}
+          onAnimationStart={() => borderBottomSound.play()}
         >
           <Image
             src="/static/images/Home/GameBoarderBottom.png"
-            // layout="fill"
             width={1850}
             height={30}
             objectFit="cover"
-            alt="Game Border Top"
+            alt="Game Border Bottom"
           />
         </Box>
-      {/* <Box
-        position="absolute"
-        width={0.95}
-        bottom={10}
-        height={70}
-        justifySelf={"center"}
-        mt={10}
-        sx={{
-          animation: "slideInRight 2s ease-out",
-          animationFillMode: "forwards",
-        }}
-      >
-        <Image
-          src="/static/images/home/GameBoarderBottom.png"
-          layout="fill"
-          objectFit="cover"
-          alt="Game Border Bottom"
-        />
-      </Box> */}
-      <Leaderboard
-        key={new Date}
-        open={open}
-        handleClose={handleClose}
-        
-      />
+      )}
+
+      <Leaderboard key={new Date()} open={open} handleClose={() => setOpen(false)} />
     </Grid>
   );
 }

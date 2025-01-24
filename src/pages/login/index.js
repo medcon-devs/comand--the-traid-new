@@ -128,21 +128,6 @@ function Login() {
         maxWidth:1920
       }}
     >
-      <Box
-        component="img"
-        width={400}
-        height={200}
-        position="absolute"
-        top="27%"
-        left="50%"
-        sx={{
-          transform: "translate(-50%, -50%)",
-          objectFit: "contain",
-          animation: "fadeInScaleWelcome 1.5s ease-in-out forwards",
-        }}
-        alt="logo"
-        src="/static/images/Welcome/logo.png"
-      />
       <Box>
         {/* <Box
           component="img"

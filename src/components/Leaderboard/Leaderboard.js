@@ -62,27 +62,40 @@ const Leaderboard = ({ open, handleClose }) => {
     }
   };
   const removepoint = async (team_id) => {
+    let shouldCallApi = false;
+ 
     setScoress((prevScores) => {
-      const updatedScores = prevScores.map((score) =>
-        score.team_id === team_id
-          ? {
+      const updatedScores = prevScores.map((score) => {
+        if (score.team_id === team_id) {
+          // Check if the score is greater than or equal to 100
+          if ((score.total_points || 0) >= 100) {
+            shouldCallApi = true;
+            return {
               ...score,
-              total_points: Math.max((score.total_points || 0) - 100, 0)
-            }
-          : score
-      );
+              total_points: Math.max((score.total_points || 0) - 100, 0),
+            };
+          }
+        }
+        return score;
+      });
+ 
       console.log("Updated scores after removing points:", updatedScores);
       return updatedScores;
     });
  
-    try {
-      const res = await post(routeConfig.remove_points, { team_id }, "");
-      console.log("API response:", res);
-      if (res.status_code === 200) {
-        console.log("Points removed successfully:", res.data);
+    // Only call the API if the condition is met
+    if (shouldCallApi) {
+      try {
+        const res = await post(routeConfig.remove_points, { team_id }, "");
+        console.log("API response:", res);
+        if (res.status_code === 200) {
+          console.log("Points removed successfully:", res.data);
+        }
+      } catch (error) {
+        console.error("Error:", error.message || "An unexpected error occurred.");
       }
-    } catch (error) {
-      console.error("Error:", error.message || "An unexpected error occurred.");
+    } else {
+      console.log(`Skipping API call: Team ${team_id} has insufficient points.`);
     }
   };
   return (
@@ -264,7 +277,7 @@ const Leaderboard = ({ open, handleClose }) => {
                       <img
                         src="/static/images/leaderboard/minus.png"
                         alt="Decrease"
-                        
+                       
                         style={{
                           cursor: "pointer",
                           width: "30px",
@@ -277,7 +290,7 @@ const Leaderboard = ({ open, handleClose }) => {
                       <img
                         src="/static/images/leaderboard/plus.png"
                         alt="Increase"
-                        
+                       
                         style={{
                           cursor: "pointer",
                           width: "30px",
@@ -286,7 +299,7 @@ const Leaderboard = ({ open, handleClose }) => {
                         }}
                       />
                       </Button>
-                      
+                     
                     </div>
                   </div>
                 ))}

@@ -7,7 +7,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  boxShadow: 24,
+  // boxShadow: 24,
   borderRadius: "8px",
   p: 2,
   width: "60%",
@@ -20,7 +20,7 @@ const SuccessPopUp = ({ open, handleClose }) => {
   useEffect(() => {
     if (open) {
       const timer = setTimeout(() => {
-        router.push("/intro"); // Navigate to the home page
+        router.replace("/home"); // Navigate to the home page
         handleClose(); // Close the popup
       }, 2000);
 

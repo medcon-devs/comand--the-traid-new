@@ -1,81 +1,92 @@
-import { Grid, Box } from "@mui/material";
-import { useEffect } from "react";
-
+import React, { useState } from "react";
+import Start from "@/components/start";
+import VideoPlayer from "../components/Video/VideoPlayer";
 import { useRouter } from "next/navigation";
+import { Grid, Box } from "@mui/material";
+
 export default function Welcome() {
   const router = useRouter();
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+  const [currentComponentIndex, setCurrentComponentIndex] = useState(0);
+  const [isExiting, setIsExiting] = useState(false);
 
-    setTimeout(() => {
-      if (token) {
-        router.replace("/intro");
-      } else {
-        router.replace("/login"); // Navigate to "login" after 5 seconds
-      }
-    }, 5000); // 5000ms = 5 seconds
-  }, []);
+  // Handle button click for navigation and component switching
+  const handleButtonClick = () => {
+    if (currentComponentIndex === 2) {
+      setIsExiting(true);
+      setTimeout(() => {
+        router.push("/home");
+      }, 1000); // Match the animation duration
+    } else {
+      setIsExiting(true);
+      setTimeout(() => {
+        setIsExiting(false);
+        setCurrentComponentIndex((prevIndex) => prevIndex + 1);
+      }, 1000); // Match the animation duration
+    }
+  };
+
+  // Array of components to render with animations
+  const allWidgets = [
+    <Start onButtonClick={handleButtonClick} key="start" />,
+    <VideoPlayer
+      key="video1"
+      videoUrl="https://res.cloudinary.com/medcon-dam/video/upload/v1737704059/Command_The_Triad_Intro_1.0_tfmgha.mp4"
+      buttonImageUrl="/static/images/Intro/Next.png"
+      onButtonClick={handleButtonClick}
+    />,
+    <VideoPlayer
+      key="video2"
+      videoUrl="https://res.cloudinary.com/medcon-dam/video/upload/v1737706849/Command_The_Triad_Rules_1.1_qudnma.mp4"
+      buttonImageUrl="/static/images/Rules/play.png"
+      onButtonClick={handleButtonClick}
+    />,
+  ];
 
   return (
     <Grid
-  width={1}
-  height="100vh"
-  sx={{
-    position: "relative",
-    backgroundImage: `url('/static/images/Welcome/welcome.png')`,
-    backgroundSize: "cover",
-    backgroundPosition: "bottom",
-    backgroundRepeat: "no-repeat",
-    
-  }}
->
-
-      {/* Main Logo with Scale and Fade-in Animation */}
+      container
+      sx={{
+        width: "100%",
+        height: "100vh",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
       <Box
-        component="img"
-        width={500}
-        height={200}
-        position="absolute"
-        top="35%"
-        left="50%"
         sx={{
-          transform: "translate(-50%, -90%)", // Centers the element
-          objectFit: "contain",
-          animation: "fadeInScaleWelcome 1.5s ease-in-out forwards",
+          width: "100%",
+          height: "100%",
+          animation: isExiting
+            ? `fadeOutScale 1s ease-in-out`
+            : `fadeInSlide 1s ease-in-out`,
         }}
-        alt="logo"
-        src="/static/images/Welcome/logo.png"
-      />
+      >
+        {allWidgets[currentComponentIndex]}
+      </Box>
 
-      {/* Floating Smaller Logo Animation */}
-      <Box
-        component="img"
-        width={150}
-        height={200}
-        position={"absolute"}
-        right={50}
-        top="0%"
-        sx={{
-          objectFit: "contain",
-          animation: "floatWelcome 3s ease-in-out infinite", // Floating animation
-        }}
-        alt="EHS"
-        src="/static/images/Welcome/novo logo.png"
-      />
-        <Box
-        component="img"
-        width={250}
-        height={200}
-        position={"absolute"}
-        left={50}
-        top="0%"
-        sx={{
-          objectFit: "contain",
-          animation: "floatWelcome 3s ease-in-out infinite", // Floating animation
-        }}
-        alt="EHS"
-        src="/static/images/Welcome/new logo.png"
-      />
+      <style jsx global>{`
+        @keyframes fadeInSlide {
+          0% {
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
+        @keyframes fadeOutScale {
+          0% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          100% {
+            opacity: 0;
+            transform: scale(0.8);
+          }
+        }
+      `}</style>
     </Grid>
   );
 }

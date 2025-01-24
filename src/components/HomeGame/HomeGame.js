@@ -57,6 +57,8 @@ function HomeGame() {
     loadData();
   }, []);
   const handleClose = ()=> {
+    loadData();
+
     setOpen(false)
     setSelectedCard(null)
     setSelectedRoundIndex(null)
@@ -70,13 +72,21 @@ function HomeGame() {
   };
 
  
-  const checkGameFinished = () => {
+//   const checkGameFinished = () => {
+//   const requiredData = Array.from({ length: 18 }, (_, i) => i + 1); // [1, 2, ..., 18]
+
+//   return opened.every(round => 
+//     requiredData.every(num => round.data.includes(num))
+//   );
+//   // return false;
+// };
+const checkGameFinished = () => {
   const requiredData = Array.from({ length: 18 }, (_, i) => i + 1); // [1, 2, ..., 18]
 
+  // Check if all rounds have the exact requiredData
   return opened.every(round => 
-    requiredData.every(num => round.data.includes(num))
+    JSON.stringify(round.data.sort((a, b) => a - b)) === JSON.stringify(requiredData)
   );
-  // return false;
 };
 
 const clickCard = async (card_id,round_id) => {
@@ -165,6 +175,7 @@ const clickCard = async (card_id,round_id) => {
                   cardIndex={cardIndex}
                   isCardOpend={isCardOpened}
                   // boxShadowsColor={boxShadowsColor}
+                  anyCardOpen={open}
                   flippedCardIndex={flippedCardIndex}
                   setFlippedCardIndex={setFlippedCardIndex}
                   setOpen={setOpen}
